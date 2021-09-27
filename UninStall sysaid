@@ -1,0 +1,12 @@
+<#sc stop SysAidAgent
+sc delete SysAidAgent
+REG DELETE HKLM\SOFTWARE\Ilient /f
+REG DELETE HKLM\SOFTWARE\Wow6432Node\Ilient /f
+taskkill /F /IM SysAidSM.exe
+taskkill /F /IM SysAidWorker.exe
+Remove-Item 'C:\Program Files\SysAid' -recurse -force
+#>
+
+
+# MSI Uninstall
+Start-Process -FilePath "msiexec.exe" -ArgumentList " /X{96F59FF7-BACB-49D3-94C8-5C152163EB14} /passive /norestart" -Wait -PassThru
